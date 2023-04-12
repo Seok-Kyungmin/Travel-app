@@ -8,6 +8,10 @@ import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'firebase_options.dart';
 import 'package:flutter_login/flutter_login.dart';
 
+
+final GlobalKey<ScaffoldMessengerState> snackbarKey =
+GlobalKey<ScaffoldMessengerState>();
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -28,6 +32,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      scaffoldMessengerKey: snackbarKey,
       theme: ThemeData(
         useMaterial3: true,
       ),
@@ -75,35 +80,21 @@ class _SecondPageState extends State<SecondPage> {
     }
   }
 
-  LoginPlatform _loginPlatform = LoginPlatform.none;
+  bool isLogin = false;
+  String? accesToken;
+  String? expiresAt;
+  String? tokenType;
+  String? name;
+  String? refreshToken;
 
-  void signInWithNaver() async {
-    final NaverLoginResult result = await FlutterNaverLogin.logIn();
-
-    if (result.status == NaverLoginStatus.loggedIn) {
-      print('accessToken = ${result.accessToken}');
-      print('id = ${result.account.id}');
-      print('email = ${result.account.email}');
-      print('name = ${result.account.name}');
-
-      setState(() {
-        _loginPlatform = LoginPlatform.naver;
-      });
-    }
-  }
-
-  void signOut() async {
-    switch (_loginPlatform) {
-      case LoginPlatform.naver:
-        await FlutterNaverLogin.logOut();
-        break;
-      case LoginPlatform.none:
-        break;
-    }
-
-    setState(() {
-      _loginPlatform = LoginPlatform.none;
-    });
+  /// Show [error] content in a ScaffoldMessenger snackbar
+  void _showSnackError(String error) {
+    snackbarKey.currentState?.showSnackBar(
+      SnackBar(
+        backgroundColor: Colors.red,
+        content: Text(error.toString()),
+      ),
+    );
   }
 
   @override
@@ -444,8 +435,27 @@ class _SecondPageState extends State<SecondPage> {
                       height: 45,
                       width: 370,
                       child: ElevatedButton(
-                        onPressed: () {
-                            signInWithNaver;
+                        onPressed: () async {
+                          try {
+                            final NaverLoginResult res = await FlutterNaverLogin.logIn();
+                            setState(() {
+                              name = res.account.nickname;
+                              isLogin = true;
+                            });
+                          } catch (error) {
+                            _showSnackError(error.toString());
+                          }
+
+                          try {
+                            final NaverAccessToken res = await FlutterNaverLogin.currentAccessToken;
+                            setState(() {
+                              refreshToken = res.refreshToken;
+                              accesToken = res.accessToken;
+                              tokenType = res.tokenType;
+                            });
+                          } catch (error) {
+                            _showSnackError(error.toString());
+                          }
                         },
                         child: Text('네이버 로그인'),
                         style: ElevatedButton.styleFrom(
