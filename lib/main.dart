@@ -54,6 +54,8 @@ class _SecondPageState extends State<SecondPage> {
   bool isSignupScreen = true;
   final _authentication = FirebaseAuth.instance;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldMessengerState> snackbarKey =
+  GlobalKey<ScaffoldMessengerState>();
 
   String userName = '';
   String userEmail = '';
@@ -79,6 +81,15 @@ class _SecondPageState extends State<SecondPage> {
       print('사용자 정보 요청 실패 $error');
     }
   }
+
+  // naver 로그인
+//   void _login_naver() anync {
+//     NaverLoginResult res = await FlutterNaverLogin.logIn();
+//     setState(() {
+//       n_name = res.account.nickname;
+//       n_email = res.account.birthday
+//     });
+// }
 
   bool isLogin = false;
   String? accesToken;
@@ -379,96 +390,72 @@ class _SecondPageState extends State<SecondPage> {
                         ])),
                   ),
 
-                  // Kakao Login Button
-                  Padding(
-                    padding: EdgeInsets.only(top: 0),
-                    child: SizedBox(
-                      height: 45,
-                      width: 370,
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          if (await isKakaoTalkInstalled()) {
-                            try {
-                              await UserApi.instance.loginWithKakaoTalk();
-                              print('카카오톡으로 로그인 성공');
-                              _login_kakao();
-                            } catch (error) {
-                              print('카카오톡으로 로그인 실패 $error');
+                  Row(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(left: 140),
+                        child: SizedBox(
+                          height: 45,
+                          // width: 370,
+                          child: InkWell(
+                            onTap: () async {
+                              if (await isKakaoTalkInstalled()) {
+                                try {
+                                  await UserApi.instance.loginWithKakaoTalk();
+                                  print('카카오톡으로 로그인 성공');
+                                  _login_kakao();
+                                } catch (error) {
+                                  print('카카오톡으로 로그인 실패 $error');
 
-                              // 카카오톡에 연결된 카카오계정이 없는 경우, 카카오계정으로 로그인
-                              try {
-                                await UserApi.instance.loginWithKakaoAccount();
-                                print('카카오계정으로 로그인 성공');
-                                _login_kakao();
-                              } catch (error) {
-                                print('카카오계정으로 로그인 실패 $error');
+                                  // 카카오톡에 연결된 카카오계정이 없는 경우, 카카오계정으로 로그인
+                                  try {
+                                    await UserApi.instance.loginWithKakaoAccount();
+                                    print('카카오계정으로 로그인 성공');
+                                    _login_kakao();
+                                  } catch (error) {
+                                    print('카카오계정으로 로그인 실패 $error');
+                                  }
+                                }
+                              } else {
+                                try {
+                                  await UserApi.instance.loginWithKakaoAccount();
+                                  print('카카오계정으로 로그인 성공');
+                                  _login_kakao();
+                                } catch (error) {
+                                  print('카카오계정으로 로그인 실패 $error');
+                                }
                               }
-                            }
-                          } else {
-                            try {
-                              await UserApi.instance.loginWithKakaoAccount();
-                              print('카카오계정으로 로그인 성공');
-                              _login_kakao();
-                            } catch (error) {
-                              print('카카오계정으로 로그인 실패 $error');
-                            }
-                          }
-                        },
-                        child: Text('카카오 로그인'),
-                        style: ElevatedButton.styleFrom(
-                          elevation: 0,
-                          backgroundColor: Color(0xFFF5F5F5),
-                          foregroundColor: Colors.black87,
-                          textStyle: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
+                            },
+                            child: Image.asset('assets/kakao_login_circle.png'),
                           ),
                         ),
                       ),
-                    ),
-                  ),
 
-                  // Naver login Button
-                  Padding(
-                    padding: EdgeInsets.only(top: 10),
-                    child: SizedBox(
-                      height: 45,
-                      width: 370,
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          try {
-                            final NaverLoginResult res = await FlutterNaverLogin.logIn();
-                            setState(() {
-                              name = res.account.nickname;
-                              isLogin = true;
-                            });
-                          } catch (error) {
-                            _showSnackError(error.toString());
-                          }
-
-                          try {
-                            final NaverAccessToken res = await FlutterNaverLogin.currentAccessToken;
-                            setState(() {
-                              refreshToken = res.refreshToken;
-                              accesToken = res.accessToken;
-                              tokenType = res.tokenType;
-                            });
-                          } catch (error) {
-                            _showSnackError(error.toString());
-                          }
-                        },
-                        child: Text('네이버 로그인'),
-                        style: ElevatedButton.styleFrom(
-                          elevation: 0,
-                          backgroundColor: Color(0xFFF5F5F5),
-                          foregroundColor: Colors.black87,
-                          textStyle: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
+                      // Naver login Button
+                      Padding(
+                        padding: EdgeInsets.only(left: 10),
+                        child: SizedBox(
+                          height: 45,
+                          // width: 370,
+                          child: InkWell(
+                            onTap: () async {
+                              try {
+                                final NaverLoginResult res = await FlutterNaverLogin.logIn();
+                                setState(() {
+                                  name = res.account.nickname;
+                                  isLogin = true;
+                                });
+                                print(res);
+                              } catch (error) {
+                                print(error);
+                                _showSnackError(error.toString());
+                              }
+                            },
+                            child: Image.asset('assets/btnG_아이콘원형.png'),
                           ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
                 ],
               ),
