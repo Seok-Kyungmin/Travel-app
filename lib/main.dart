@@ -5,12 +5,12 @@ import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart'
 import 'package:flutter_naver_login/flutter_naver_login.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide User;
+import 'component/register.dart';
 import 'firebase_options.dart';
 import 'package:flutter_login/flutter_login.dart';
 
-
 final GlobalKey<ScaffoldMessengerState> snackbarKey =
-GlobalKey<ScaffoldMessengerState>();
+    GlobalKey<ScaffoldMessengerState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,12 +42,12 @@ class MyApp extends StatelessWidget {
 }
 
 // 회원 가입 페이지
-class SecondPage extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
   @override
-  State<SecondPage> createState() => _SecondPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _SecondPageState extends State<SecondPage> {
+class _RegisterPageState extends State<RegisterPage> {
   bool _isChecked = false;
   bool _isChecked2 = false;
   bool _isChecked3 = false;
@@ -55,7 +55,7 @@ class _SecondPageState extends State<SecondPage> {
   final _authentication = FirebaseAuth.instance;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldMessengerState> snackbarKey =
-  GlobalKey<ScaffoldMessengerState>();
+      GlobalKey<ScaffoldMessengerState>();
 
   String userName = '';
   String userEmail = '';
@@ -63,24 +63,6 @@ class _SecondPageState extends State<SecondPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _pwController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
-
-  void _tryValidation() {
-    final isValid = _formKey.currentState!.validate();
-    if (isValid) {
-      _formKey.currentState!.save();
-    }
-  }
-
-  void _login_kakao() async {
-    try {
-      User user = await UserApi.instance.me();
-      print('사용자 정보 요청 성공'
-          '\n회원번호: ${user.id}'
-          '\n닉네임: ${user.kakaoAccount?.profile?.nickname}');
-    } catch (error) {
-      print('사용자 정보 요청 실패 $error');
-    }
-  }
 
   // naver 로그인
 //   void _login_naver() anync {
@@ -330,7 +312,7 @@ class _SecondPageState extends State<SecondPage> {
                         child: ElevatedButton(
                           onPressed: () async {
                             if (isSignupScreen) {
-                              _tryValidation();
+                              tryValidation(_formKey);
 
                               try {
                                 final newUser = await _authentication
@@ -403,24 +385,26 @@ class _SecondPageState extends State<SecondPage> {
                                 try {
                                   await UserApi.instance.loginWithKakaoTalk();
                                   print('카카오톡으로 로그인 성공');
-                                  _login_kakao();
+                                  login_kakao();
                                 } catch (error) {
                                   print('카카오톡으로 로그인 실패 $error');
 
                                   // 카카오톡에 연결된 카카오계정이 없는 경우, 카카오계정으로 로그인
                                   try {
-                                    await UserApi.instance.loginWithKakaoAccount();
+                                    await UserApi.instance
+                                        .loginWithKakaoAccount();
                                     print('카카오계정으로 로그인 성공');
-                                    _login_kakao();
+                                    login_kakao();
                                   } catch (error) {
                                     print('카카오계정으로 로그인 실패 $error');
                                   }
                                 }
                               } else {
                                 try {
-                                  await UserApi.instance.loginWithKakaoAccount();
+                                  await UserApi.instance
+                                      .loginWithKakaoAccount();
                                   print('카카오계정으로 로그인 성공');
-                                  _login_kakao();
+                                  login_kakao();
                                 } catch (error) {
                                   print('카카오계정으로 로그인 실패 $error');
                                 }
@@ -440,7 +424,8 @@ class _SecondPageState extends State<SecondPage> {
                           child: InkWell(
                             onTap: () async {
                               try {
-                                final NaverLoginResult res = await FlutterNaverLogin.logIn();
+                                final NaverLoginResult res =
+                                    await FlutterNaverLogin.logIn();
                                 setState(() {
                                   name = res.account.nickname;
                                   isLogin = true;
