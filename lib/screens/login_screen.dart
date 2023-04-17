@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:internship/screens/register_screen.dart';
 
-import '../main.dart';
 import 'main_screen.dart';
 
 // 로그인 페이지
@@ -194,7 +193,7 @@ class _LoginPageState extends State<LoginPage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => RegisterPage()),
+                      MaterialPageRoute(builder: (context) => RegisterScreen()),
                     );
                   },
                   style: ElevatedButton.styleFrom(
