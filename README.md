@@ -1,4 +1,4 @@
-# internship
+# Travel-app
 
 A new Flutter project.
 
