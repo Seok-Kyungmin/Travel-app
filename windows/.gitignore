@@ -6,6 +6,7 @@ flutter/ephemeral/
 *.userosscache
 *.sln.docstates
 
+.gitmessage.txt
 # Visual Studio build-related files.
 x64/
 x86/
