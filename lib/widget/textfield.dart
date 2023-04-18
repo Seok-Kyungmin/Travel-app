@@ -27,6 +27,3 @@ InputDecoration loginDecoration(
     labelStyle: TextStyle(color: Colors.grey),
   );
 }
-
-
-

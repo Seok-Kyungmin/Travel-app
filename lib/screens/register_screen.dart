@@ -63,7 +63,7 @@ class RegisterScreen extends HookConsumerWidget {
                         key: ValueKey(1),
                         controller: _nameController,
                         validator: namevalidator,
-                        onSaved: (value){
+                        onSaved: (value) {
                           userName.value = value!;
                         },
                         onChanged: (String value) {
@@ -82,10 +82,11 @@ class RegisterScreen extends HookConsumerWidget {
                         onChanged: (value) {
                           tryValidation(_formKey);
                         },
-                        onSaved: (value){
+                        onSaved: (value) {
                           userEmail.value = value!;
                         },
-                        decoration: registerDecoration(icon: Icons.email_outlined, hint: 'Email(필수)'),
+                        decoration: registerDecoration(
+                            icon: Icons.email_outlined, hint: 'Email(필수)'),
                       )),
 
                   // 비밀번호 입력폼
@@ -97,10 +98,10 @@ class RegisterScreen extends HookConsumerWidget {
                         validator: pwvalidator,
                         onChanged: (value) {
                           tryValidation(_formKey);
-
                         },
                         obscureText: true,
-                        decoration: registerDecoration(icon: Icons.lock_outline, hint: '비밀번호 12자리 이하 입력'),
+                        decoration: registerDecoration(
+                            icon: Icons.lock_outline, hint: '비밀번호 12자리 이하 입력'),
                       )),
 
                   // 비밀번호 재입력폼
@@ -122,17 +123,18 @@ class RegisterScreen extends HookConsumerWidget {
                           userPassword.value = value!;
                         },
                         obscureText: true,
-                        decoration: registerDecoration(icon: Icons.lock_outline, hint: '비밀번호'),
+                        decoration: registerDecoration(
+                            icon: Icons.lock_outline, hint: '비밀번호'),
                       )),
 
                   // 이용약간 동의 체크박스
                   checkBoxForm(isChecked: isChecked, text: '이용약간 동의 보기'),
 
                   // 개인정보수집·이용 동의 체크박스
-                  checkBoxForm(isChecked: isChecked2,text: '개인정보수집·이용 동의 보기'),
+                  checkBoxForm(isChecked: isChecked2, text: '개인정보수집·이용 동의 보기'),
 
                   // 만 14세 이상 체크박스
-                  checkBoxForm(isChecked: isChecked3,text: '만 14세 이상입니다.'),
+                  checkBoxForm(isChecked: isChecked3, text: '만 14세 이상입니다.'),
 
                   // 회원가입 버튼
                   Padding(
@@ -147,10 +149,10 @@ class RegisterScreen extends HookConsumerWidget {
                               tryValidation(_formKey);
 
                               try {
-                                final newUser =
-                                  await _authentication.createUserWithEmailAndPassword(
-                                    email: userEmail.value,
-                                    password: userPassword.value,
+                                final newUser = await _authentication
+                                    .createUserWithEmailAndPassword(
+                                  email: userEmail.value,
+                                  password: userPassword.value,
                                 );
 
                                 if (newUser.user != null) {
@@ -162,7 +164,9 @@ class RegisterScreen extends HookConsumerWidget {
                                 }
                               } catch (e) {
                                 print(e);
-                                dialog(context: context,text:'이메일과 비밀번호를 확인해주세요');
+                                dialog(
+                                    context: context,
+                                    text: '이메일과 비밀번호를 확인해주세요');
                               }
                             }
                           },
@@ -258,7 +262,8 @@ class RegisterScreen extends HookConsumerWidget {
                                 print(res);
                               } catch (error) {
                                 print(error);
-                                dialog(context: context,text:error.toString());
+                                dialog(
+                                    context: context, text: error.toString());
                               }
                             },
                             child: Image.asset('assets/btnG_아이콘원형.png'),

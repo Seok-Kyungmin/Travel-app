@@ -36,6 +36,7 @@ class MainPageState extends HookConsumerWidget {
             ),
           ],
         ),
+
         drawer: Drawer(
           child: ListView(
             padding: EdgeInsets.zero,
@@ -100,6 +101,7 @@ class MainPageState extends HookConsumerWidget {
             ],
           ),
         ),
+
         body: Column(
           children: <Widget>[
             Container(
