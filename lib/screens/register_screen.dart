@@ -145,7 +145,6 @@ class RegisterScreen extends HookConsumerWidget {
                           onPressed: () async {
                             if (isSignupScreen) {
                               tryValidation(_formKey);
-                              print("지나감");
 
                               try {
                                 final newUser =

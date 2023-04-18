@@ -156,7 +156,9 @@ class LoginPageState extends HookConsumerWidget {
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
               ),
             ),
-          ]))),
+          ])
+          )
+      ),
     );
   }
 }
