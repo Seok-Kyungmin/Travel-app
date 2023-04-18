@@ -1,7 +1,14 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter/animation.dart';
+
+import '../widget/titleSection.dart';
+import '../widget/textSection.dart';
+import '../column/buttonSection.dart';
 
 
 class MainPageState extends HookConsumerWidget {
@@ -9,15 +16,18 @@ class MainPageState extends HookConsumerWidget {
 
   final List<String> entries = <String>['A', 'B', 'C'];
   final List<int> colorCodes = <int>[600, 500, 100];
+  get canvas => null;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
+    Color color = Theme.of(context).primaryColor;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Color(0xFF141212),
           foregroundColor: Colors.white,
           elevation: 0,
-          title: Text('main page'),
+          title: Text('travel'),
           centerTitle: true,
           actions: <Widget>[
             IconButton(
@@ -55,7 +65,7 @@ class MainPageState extends HookConsumerWidget {
                   ),
                 ],
                 accountName: Text('Kyungmin'),
-                accountEmail: Text('test@email.com'),
+                accountEmail: Text('LV.7 플래티넘'),
                 onDetailsPressed: () {
                   print('arrow is clicked');
                 },
@@ -75,6 +85,7 @@ class MainPageState extends HookConsumerWidget {
                   print("Home is clicked");
                 },
                 trailing: Icon(Icons.add),
+
               ),
               ListTile(
                 leading: Icon(
@@ -101,84 +112,26 @@ class MainPageState extends HookConsumerWidget {
             ],
           ),
         ),
-
-        body: Column(
-          children: <Widget>[
-            Container(
-              height: 200,
-              color: Color(0xFFDCE3FF),
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(20, 40, 0, 0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start, // 단축어 cro
-                  children: <Widget>[
-                    // 단축어 cir
-                    // 이미지 넣기
-                    Row(
-                      children: [
-                        CircleAvatar(
-                          backgroundImage:
-                              AssetImage('assets/BF.32098611.1.jpg'),
-                          radius: 60,
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Text(
-                          'Name',
-                          style: TextStyle(
-                              color: Colors.white, letterSpacing: 2.0),
-                        ),
-                        SizedBox(
-                          width: 15,
-                        ),
-                        Text(
-                          'Kim Hyunjin',
-                          style: TextStyle(
-                              color: Colors.white,
-                              letterSpacing: 2.0,
-                              fontSize: 28,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Text(
-              'Little Prince Power Level',
-              style: TextStyle(
-                color: Colors.grey,
-                letterSpacing: 2.0,
-              ),
-              textAlign: TextAlign.left,
-            ),
-            SizedBox(height: 10),
-            Text(
-              '14',
-              style: TextStyle(
-                  color: Colors.grey,
-                  letterSpacing: 2.0,
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold),
-              textAlign: TextAlign.left,
-            ),
-            SizedBox(height: 30),
-            Row(
-              children: <Widget>[
-                Icon(Icons.check_circle_outline),
-                SizedBox(width: 10),
-                Text(
-                  'face hero tatto',
-                  style: TextStyle(fontSize: 16, letterSpacing: 1),
-                )
-              ],
-            ),
-          ],
-        ));
+      body: Column(
+        children: [
+          Image.asset(
+            'assets/lake.webp',
+            width: 600,
+            height: 240,
+            fit: BoxFit.cover,
+          ),
+          titleSection,
+          Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                buildButtonColumn(color, Icons.call, 'CALL'),
+                buildButtonColumn(color, Icons.near_me, 'ROUTE'),
+                buildButtonColumn(color, Icons.share, 'SHARE'),
+              ]
+          ),
+          textSection,
+        ],
+      ),
+    );
   }
 }
