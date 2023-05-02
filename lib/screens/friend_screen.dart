@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 import '../class/Search.dart';
 import '../widget/chatItem.dart';
+import 'chatlist_screen.dart';
 
 class ChatPage extends HookConsumerWidget {
   ChatPage({super.key});
@@ -13,31 +15,41 @@ class ChatPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final searchResults = useState<List<DocumentSnapshot>>([]);
     final TextEditingController _searchController = TextEditingController();
-    final List<String> list = List.generate(10, (index) => "Text $index");
+    // final List<String> list = List.generate(10, (index) => "Text $index");
+    final collectionRef = FirebaseFirestore.instance.collection('chattingRoom');
 
-    void search(String query) {
-      // 데이터를 가져오는 비동기 작업을 실행합니다.
-      FirebaseFirestore.instance
-          .collection('chattingRoom')
-          .where('id', isEqualTo: 'chattingRoom')
-          .get()
-          .then((querySnapshot) {
-        // 검색 결과를 상태에 저장합니다.
-        searchResults.value = querySnapshot.docs;
-      });
+    Future<List<dynamic>> getDataList() async {
+      List<dynamic> dataList = [];
+      final snapshot = await collectionRef.get();
+      if (snapshot.docs.isNotEmpty) {
+        dataList = snapshot.docs.map((document) => document.data()).toList();
+      }
+      return dataList;
     }
+    // void search(String query) {
+    //   // 데이터를 가져오는 비동기 작업을 실행합니다.
+    //   FirebaseFirestore.instance
+    //       .collection('chattingRoom')
+    //       .where('id', isEqualTo: 'chattingRoom')
+    //       .get()
+    //       .then((querySnapshot) {
+    //     // 검색 결과를 상태에 저장합니다.
+    //     searchResults.value = querySnapshot.docs;
+    //   });
+    // }
 
     return Scaffold(
       appBar: AppBar(
-        actions: <Widget>[
-          IconButton(
-            onPressed: () {
-              showSearch(context: context, delegate: Search(list));
-            },
-            icon: Icon(Icons.search),
-          )
-        ],
+        // actions: <Widget>[
+        //   IconButton(
+        //     onPressed: () {
+        //       showSearch(context: context, delegate: Search(getDataList as List<String>));
+        //     },
+        //     icon: Icon(Icons.search),
+        //   )
+        // ],
         centerTitle: true,
+          automaticallyImplyLeading: false,
         title: Text('Chatting List'),
       ),
       body: StreamBuilder(
@@ -48,7 +60,7 @@ class ChatPage extends HookConsumerWidget {
               AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
-                child: CircularProgressIndicator()
+                  child: CircularProgressIndicator()
               );
             }
 
