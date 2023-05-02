@@ -3,9 +3,9 @@ import '../column/buttonSection.dart';
 import '../widget/textSection.dart';
 import '../widget/titleSection.dart';
 
-Color color = Colors.indigo;
+Color color = Colors.indigoAccent;
 
-Widget firstPage =  SingleChildScrollView(
+Widget HomePage =  SingleChildScrollView(
         child: Column(
           children: [
             Image.asset(

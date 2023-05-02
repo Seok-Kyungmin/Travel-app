@@ -4,8 +4,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter/animation.dart';
 
 import '../widget/first.dart';
-import '../widget/second.dart';
-import '../widget/third.dart';
+import 'chatlist_screen.dart';
+import 'friend_screen.dart';
 
 class MainPageState extends HookConsumerWidget {
   MainPageState({super.key});
@@ -16,9 +16,9 @@ class MainPageState extends HookConsumerWidget {
 
     final _widgetOptions = [
       //이게 하나하나의 화면이되고, Text등을 사용하거나, dart파일에 있는 class를 넣는다.
-      firstPage,
-      secondPage,
-      thirdPage,
+      HomePage,
+      ChatPage(),
+      AddChatRoomPage(),
     ];
 
     ValueNotifier<int> _selectedIndex = useState(0);
@@ -33,22 +33,6 @@ class MainPageState extends HookConsumerWidget {
         elevation: 0,
         title: Text('travel'),
         centerTitle: true,
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.shopping_cart),
-            onPressed: () {
-              //아이톤 버튼 실행
-              print('Shopping cart button is clicked');
-            },
-          ),
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {
-              // 아이콘 버튼 실행
-              print('Serch button is clicked');
-            },
-          ),
-        ],
       ),
       drawer: Drawer(
         child: ListView(
@@ -121,11 +105,12 @@ class MainPageState extends HookConsumerWidget {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'home'),
-          BottomNavigationBarItem(icon: Icon(Icons.book), label: 'second'),
-          BottomNavigationBarItem(icon: Icon(Icons.account_circle), label: 'mypage'),
+          BottomNavigationBarItem(icon: Icon(Icons.chat), label: 'Chatting'),
+          BottomNavigationBarItem(icon: Icon(Icons.add_comment), label: 'Add Chatting Room'),
+          // BottomNavigationBarItem(icon: Icon(Icons.add_comment), label: 'lala'),
         ],
         currentIndex: _selectedIndex.value,
-        selectedItemColor: Colors.amber[800],
+        selectedItemColor: Colors.indigoAccent[800],
         onTap: (int index){
           _onItemTapped(index);
         }

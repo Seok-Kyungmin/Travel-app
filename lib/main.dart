@@ -23,6 +23,11 @@ enum LoginPlatform { naver, none }
 
 LoginPlatform _loginPlatform = LoginPlatform.none;
 
+class CandyGlobalVariable {
+  static final GlobalKey<NavigatorState> naviagatorState =
+  GlobalKey<NavigatorState>();
+}
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -31,6 +36,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       scaffoldMessengerKey: snackbarKey,
+      navigatorKey: CandyGlobalVariable.naviagatorState,
       theme: ThemeData(
         useMaterial3: true,
       ),
