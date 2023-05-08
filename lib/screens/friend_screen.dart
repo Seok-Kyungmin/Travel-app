@@ -40,14 +40,18 @@ class ChatPage extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        // actions: <Widget>[
-        //   IconButton(
-        //     onPressed: () {
-        //       showSearch(context: context, delegate: Search(getDataList as List<String>));
-        //     },
-        //     icon: Icon(Icons.search),
-        //   )
-        // ],
+        actions: <Widget>[
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => AddChatRoomPage()),
+              );
+            },
+            icon: Icon(Icons.add_comment),
+          )
+        ],
         centerTitle: true,
           automaticallyImplyLeading: false,
         title: Text('Chatting List'),

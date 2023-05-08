@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../widget/chatItem.dart';
-import 'Add_chatting_screen.dart';
 
 class ChattingRoom {
   String id;
@@ -40,17 +39,14 @@ class AddChatRoomPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Expanded(
-      child: Padding(
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text('오픈 채팅'),
+      ),
+      body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(children: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(bottom: 20),
-            child: Text(
-              '채팅방 만들기',
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-            ),
-          ),
           Expanded(
             child: Column(
               children: <Widget>[

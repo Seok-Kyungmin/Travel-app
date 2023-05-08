@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter/animation.dart';
 
 import '../widget/first.dart';
+import 'chatRoom_screen.dart';
 import 'chatlist_screen.dart';
 import 'friend_screen.dart';
 
@@ -18,7 +19,7 @@ class MainPageState extends HookConsumerWidget {
       //이게 하나하나의 화면이되고, Text등을 사용하거나, dart파일에 있는 class를 넣는다.
       HomePage,
       ChatPage(),
-      AddChatRoomPage(),
+      ChatRoomPage(),
     ];
 
     ValueNotifier<int> _selectedIndex = useState(0);
