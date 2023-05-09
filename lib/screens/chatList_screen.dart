@@ -12,8 +12,8 @@ class ChattingRoom {
   ChattingRoom(this.id, this.name);
 }
 
-class AddChatRoomPage extends HookConsumerWidget {
-  AddChatRoomPage({super.key});
+class ChatListPage extends HookConsumerWidget {
+  ChatListPage({super.key});
 
 // 채팅 문자열 조작을 위한 컨트롤러
   var _chatController = TextEditingController();

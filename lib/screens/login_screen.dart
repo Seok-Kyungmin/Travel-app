@@ -65,7 +65,7 @@ class LoginPageState extends HookConsumerWidget {
                   textAlign: TextAlign.center),
             ),
 
-                // 이메일 또는 전화번호 입력폼
+                // 이메일 입력폼
                 Padding(
                   padding: EdgeInsets.only(left: 20, right: 20, top: 20),
                   child: TextFormField(
@@ -77,7 +77,7 @@ class LoginPageState extends HookConsumerWidget {
                     onChanged: (value) {
                       tryValidation2(_formKey);
                     },
-                    decoration: loginDecoration(label: '이메일 또는 전화번호'),
+                    decoration: loginDecoration(label: '이메일'),
                     style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
                   ),
                 ),

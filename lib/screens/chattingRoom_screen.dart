@@ -3,13 +3,14 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'addChat_screen.dart';
 import 'chatRoom_screen.dart';
-import 'chatlist_screen.dart';
+import 'chatList_screen.dart';
 
 class ChattingRoomPage extends HookConsumerWidget {
-  ChattingRoomPage({Key? key, required this.chattingRoom}) : super(key: key);
+  ChattingRoomPage({Key? key, required this.chatRoom}) : super(key: key);
 
-  final ChattingRoom chattingRoom;
+  final ChatRoom chatRoom;
   String id = '';
   String _errorMessage = '';
 
@@ -27,7 +28,7 @@ class ChattingRoomPage extends HookConsumerWidget {
       String ID = _idController.text;
 
       // Firebase에서 가져온 데이터와 비교
-      if (chattingRoom.id == ID) {
+      if (chatRoom.id == ID) {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => ChatRoomPage()));
       } else {
@@ -68,7 +69,7 @@ class ChattingRoomPage extends HookConsumerWidget {
                 const SizedBox(
                   width: 30,
                 ),
-                Text(chattingRoom.name, style: TextStyle(fontSize: 18)),
+                Text(chatRoom.roomName, style: TextStyle(fontSize: 18)),
               ],
             ),
             const SizedBox(

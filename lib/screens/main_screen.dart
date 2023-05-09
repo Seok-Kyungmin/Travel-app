@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -5,8 +6,8 @@ import 'package:flutter/animation.dart';
 
 import '../widget/first.dart';
 import 'chatRoom_screen.dart';
-import 'chatlist_screen.dart';
-import 'friend_screen.dart';
+import 'chatList_screen.dart';
+import 'userChatList_screen.dart';
 
 class MainPageState extends HookConsumerWidget {
   MainPageState({super.key});
@@ -52,7 +53,7 @@ class MainPageState extends HookConsumerWidget {
                   backgroundImage: AssetImage('assets/BF.32098611.1.jpg'),
                 ),
               ],
-              accountName: Text('Kyungmin'),
+              accountName: Text('${FirebaseAuth.instance.currentUser!.email}'),
               accountEmail: Text('LV.7 플래티넘'),
               onDetailsPressed: () {
                 print('arrow is clicked');
@@ -63,6 +64,7 @@ class MainPageState extends HookConsumerWidget {
                       bottomLeft: Radius.circular(40.0),
                       bottomRight: Radius.circular(40.0))),
             ),
+
             ListTile(
               leading: Icon(
                 Icons.home,

@@ -6,7 +6,8 @@ import 'package:firebase_database/firebase_database.dart';
 
 import '../class/Search.dart';
 import '../widget/chatItem.dart';
-import 'chatlist_screen.dart';
+import 'addChat_screen.dart';
+import 'chatList_screen.dart';
 
 class ChatPage extends HookConsumerWidget {
   ChatPage({super.key});
@@ -26,17 +27,6 @@ class ChatPage extends HookConsumerWidget {
       }
       return dataList;
     }
-    // void search(String query) {
-    //   // 데이터를 가져오는 비동기 작업을 실행합니다.
-    //   FirebaseFirestore.instance
-    //       .collection('chattingRoom')
-    //       .where('id', isEqualTo: 'chattingRoom')
-    //       .get()
-    //       .then((querySnapshot) {
-    //     // 검색 결과를 상태에 저장합니다.
-    //     searchResults.value = querySnapshot.docs;
-    //   });
-    // }
 
     return Scaffold(
       appBar: AppBar(
@@ -52,13 +42,13 @@ class ChatPage extends HookConsumerWidget {
             icon: Icon(Icons.add_comment),
           )
         ],
-        centerTitle: true,
-          automaticallyImplyLeading: false,
+        centerTitle: true,  // 가운데 정렬
+        automaticallyImplyLeading: false,   // appBar 뒤로가기 버튼 제거
         title: Text('Chatting List'),
       ),
       body: StreamBuilder(
           stream: FirebaseFirestore.instance
-              .collection('chattingRoom')
+              .collection(sessionId!)
               .snapshots(),
           builder: (BuildContext context,
               AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
@@ -71,7 +61,7 @@ class ChatPage extends HookConsumerWidget {
             final documents = snapshot.data?.docs;
             return ListView(
               children: documents!
-                  .map((doc) => buildItemWidget2(doc))
+                  .map((doc) => buildItemWidget3(doc))
                   .toList(),
             );
           }
