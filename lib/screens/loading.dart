@@ -59,7 +59,7 @@ class LoadingPage extends HookConsumerWidget {
         child: Stack(
           children: [
             Image.asset(
-              'assets/background.jpg',
+              'assets/background2.jpg',
               fit: BoxFit.cover,
               width: double.infinity,
               height: double.infinity,

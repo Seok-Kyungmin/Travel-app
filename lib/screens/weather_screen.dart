@@ -35,7 +35,6 @@ class WeatherScreen extends HookConsumerWidget {
     icon = model.getWeatherIcon(condition)!;
 
     print(temp);
-    print(cityName);
   }
 
   //시간 불러오기 메소드
@@ -54,12 +53,12 @@ class WeatherScreen extends HookConsumerWidget {
       },
     );
 
-    return Scaffold(// body를 appBar까지 확장시킨다는 의미
+    return Scaffold(
       body: Container(
         child: Stack(
           children: [
             Image.asset(
-              'assets/background.jpg',
+              'assets/background2.jpg',
               fit: BoxFit.cover,
               width: double.infinity,
               height: double.infinity,
