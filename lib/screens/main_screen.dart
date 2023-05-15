@@ -5,8 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter/animation.dart';
 
 import '../widget/first.dart';
-import 'chatRoom_screen.dart';
-import 'chatList_screen.dart';
+import 'loading.dart';
 import 'userChatList_screen.dart';
 
 class MainPageState extends HookConsumerWidget {
@@ -20,7 +19,7 @@ class MainPageState extends HookConsumerWidget {
       //이게 하나하나의 화면이되고, Text등을 사용하거나, dart파일에 있는 class를 넣는다.
       HomePage,
       ChatPage(),
-      ChatRoomPage(),
+      LoadingPage(),
     ];
 
     ValueNotifier<int> _selectedIndex = useState(0);
@@ -109,8 +108,7 @@ class MainPageState extends HookConsumerWidget {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'home'),
           BottomNavigationBarItem(icon: Icon(Icons.chat), label: 'Chatting'),
-          BottomNavigationBarItem(icon: Icon(Icons.add_comment), label: 'Add Chatting Room'),
-          // BottomNavigationBarItem(icon: Icon(Icons.add_comment), label: 'lala'),
+          BottomNavigationBarItem(icon: Icon(Icons.add_comment), label: 'weather'),
         ],
         currentIndex: _selectedIndex.value,
         selectedItemColor: Colors.indigoAccent[800],

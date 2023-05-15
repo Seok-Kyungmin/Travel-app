@@ -51,6 +51,14 @@ dependencies:
   permission_handler: ^10.2.0
   firestore_search_input: ^0.2.0
   firebase_database: ^10.1.1
+  geolocator: ^9.0.2
+  http: ^0.13.6
+  google_fonts: ^4.0.4
+  flutter_svg: ^2.0.5
+  timer_builder: ^2.0.0
+  intl: ^0.17.0
+  flutter_spinkit: ^5.2.0
+  kakaomap_webview: ^0.6.2
 
 dev_dependencies:
   flutter_test:
@@ -86,6 +94,16 @@ flutter:
     - assets/BF.32098611.1.jpg
     - assets/hunjin.jpg
     - assets/lake.webp
+    - assets/background.jpg
+    - assets/marker.com.png
+    - assets/svg/climacon-cloud_lightning.svg
+    - assets/svg/climacon-cloud_moon.svg
+    - assets/svg/climacon-cloud_rain.svg
+    - assets/svg/climacon-cloud_snow_alt.svg
+    - assets/svg/climacon-cloud_sun.svg
+    - assets/svg/climacon-sun.svg
+    - assets/svg/climacon-sun_fill.svg
+    - assets/svg/icon.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
