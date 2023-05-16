@@ -81,7 +81,7 @@ class WeatherScreen extends HookConsumerWidget {
                               height: 30,
                             ),
                             Text(
-                              'Seoul',
+                              '$cityName',
                               style: GoogleFonts.lato(
                                 fontSize: 35.0,
                                 fontWeight: FontWeight.bold,

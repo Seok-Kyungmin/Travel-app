@@ -24,31 +24,3 @@ class MyLocation {
   }
 }
 
-class KakaoLocation {
-
-  double? latitude22;
-  double? longitude22;
-
-  Future<void> getMyCurrentLocation() async {
-    final coordinates = await Geolocator.getCurrentPosition();
-    final latitude22 = coordinates.latitude;
-    final longitude22 = coordinates.longitude;
-    print("latitude22");
-    print(latitude22);
-    print('longitude22');
-    print(longitude22);
-
-    final url = Uri.parse(
-      'https://dapi.kakao.com/v2/local/geo/coord2address.json?x=$longitude22&y=$latitude22&input_coord=WGS84',
-    );
-    final response = await http.get(
-      url,
-      headers: {
-        'Authorization': 'cedff17d1b6504b8fb92c7b6a637c896',
-      },
-    );
-
-    final data = json.decode(utf8.decode(response.bodyBytes))['documents'][0];
-    final cityName = data['address']['region_2depth_name'];
-  }
-}
