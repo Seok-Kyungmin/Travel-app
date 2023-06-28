@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -29,8 +31,21 @@ void ex1() {
     print(i);
   }
 }
+List<IconData> userIcon = [
+  Icons.person,
+  Icons.person,
+  Icons.person,
+  Icons.person,
+];
 
-List<Map> userInfoList = [
+List<Color> colorList = [
+  Colors.red,
+  Colors.blue,
+  Colors.amber,
+  Colors.green
+];
+
+List<Map<String,String>> userInfoList = [
   {'name': 'Nurcahyo Budi Nugroho', 'info': 'Sistem Informasi', 'date': '2015'},
   {'name': 'Mulia Dewi', 'info': 'Manajemen  Informatika', 'date': '2019'},
   {'name': 'Tom Cruise', 'info': 'Teknik Komputer', 'date': '2017'},
@@ -42,8 +57,7 @@ void ex3() {
 }
 
 class FreindPage extends HookConsumerWidget {
-  TextEditingController _tController = TextEditingController();
-  ScrollController _sController = ScrollController();
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
@@ -61,16 +75,16 @@ class FreindPage extends HookConsumerWidget {
           Expanded(
               child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: ListView.builder(  
+            child: ListView.builder(
               itemCount: userInfoList.length,
               itemBuilder: (BuildContext context, int index){
                 return Card(
                   color: Colors.white,
                   child: ListTile(
-                    leading: Icon(Icons.person, color: Color.fromARGB(255, 15, 138, 226),),
-                    trailing: Text(userInfoList[index]['date'], style: TextStyle(fontSize: 17),),
-                    title: Text(userInfoList[index]['name'], style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),),
-                    subtitle: Text(userInfoList[index]['info']),
+                    leading: Icon(userIcon[index], color: colorList[index],),
+                    trailing: Text(userInfoList[index]['date']!, style: TextStyle(fontSize: 17),),
+                    title: Text(userInfoList[index]['name']!, style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),),
+                    subtitle: Text(userInfoList[index]['info']!),
                   ),
                 );
               }

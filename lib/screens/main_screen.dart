@@ -114,6 +114,7 @@ class MainPageState extends HookConsumerWidget {
           BottomNavigationBarItem(icon: Icon(Icons.add_comment), label: 'friend'),
         ],
         currentIndex: _selectedIndex.value,
+        fixedColor: Colors.blue,
         selectedItemColor: Colors.indigoAccent[800],
         onTap: (int index){
           _onItemTapped(index);
