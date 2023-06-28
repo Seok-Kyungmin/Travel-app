@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter/animation.dart';
+import 'package:internship/screens/freind_screen.dart';
 
 import '../widget/first.dart';
 import 'loading.dart';
@@ -20,6 +21,7 @@ class MainPageState extends HookConsumerWidget {
       HomePage,
       ChatPage(),
       LoadingPage(),
+      FreindPage(),
     ];
 
     ValueNotifier<int> _selectedIndex = useState(0);
@@ -108,7 +110,8 @@ class MainPageState extends HookConsumerWidget {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'home'),
           BottomNavigationBarItem(icon: Icon(Icons.chat), label: 'Chatting'),
-          BottomNavigationBarItem(icon: Icon(Icons.add_comment), label: 'weather'),
+          BottomNavigationBarItem(icon: Icon(Icons.cloud), label: 'weather'),
+          BottomNavigationBarItem(icon: Icon(Icons.add_comment), label: 'friend'),
         ],
         currentIndex: _selectedIndex.value,
         selectedItemColor: Colors.indigoAccent[800],
