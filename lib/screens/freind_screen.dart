@@ -70,6 +70,7 @@ class FreindPage extends HookConsumerWidget {
           textAlign: TextAlign.center,
         ),
       ),
+
       body: Column(
         children: [
           Expanded(
